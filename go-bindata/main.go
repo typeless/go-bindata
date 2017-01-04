@@ -56,13 +56,18 @@ func parseArgs() *bindata.Config {
 	ignore := make([]string, 0)
 	flag.Var((*AppendSliceValue)(&ignore), "ignore", "Regex pattern to ignore")
 
+	include := make([]stirng, 0)
+	flag.Var((*AppendSliceValue)(&include), "include", "Regex pattern to include")
+
 	flag.Parse()
 
-	patterns := make([]*regexp.Regexp, 0)
 	for _, pattern := range ignore {
-		patterns = append(patterns, regexp.MustCompile(pattern))
+		c.Ignore = append(c.Ignore, regexp.MustCompile(pattern))
 	}
-	c.Ignore = patterns
+
+	for _, pattern := range include {
+		c.Include = append(c.Include, regexp.MustCompile(pattern))
+	}
 
 	if version {
 		fmt.Printf("%s\n", Version())

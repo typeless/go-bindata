@@ -139,7 +139,8 @@ type Config struct {
 	// will match any .gitignore file.
 	//
 	// This parameter can be provided multiple times.
-	Ignore []*regexp.Regexp
+	Ignore  []*regexp.Regexp
+	Include []*regexp.Regexp
 }
 
 // NewConfig returns a default configuration struct.
@@ -151,6 +152,7 @@ func NewConfig() *Config {
 	c.Debug = false
 	c.Output = "./bindata.go"
 	c.Ignore = make([]*regexp.Regexp, 0)
+	c.Include = make([]*regexp.Regexp, 0)
 	return c
 }
 
